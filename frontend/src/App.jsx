@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from './components/Home';
 import Registro from './components/Registro';
 import Login from './components/Login';
@@ -6,6 +6,16 @@ import Login from './components/Login';
 function App() {
 
   const [vistaActual, setVistaActual] = useState('home');
+  const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+
+  // 🔥 Detectar si hay sesión
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setUsuarioLogueado(true);
+    }
+  }, []);
 
   const navStyle = {
     display: 'flex',
@@ -36,6 +46,12 @@ function App() {
     color: 'white'
   };
 
+  const cerrarSesion = ()=> {
+    localStorage.removeItem("token");
+    setUsuarioLogueado(false); 
+    setVistaActual('home');
+  }
+
   return (
     <div style={{ backgroundColor: '#F9FBF2', minHeight: '100vh', fontFamily: '"Segoe UI", Roboto, Arial, sans-serif' }}>
 
@@ -55,13 +71,28 @@ function App() {
             Inicio
           </button>
 
-          <button style={linkStyle} onClick={() => setVistaActual('login')}>
-            Iniciar Sesión
-          </button>
+          {/* SI NO ESTÁ LOGUEADO */}
+          {!usuarioLogueado && (
+            <>
+              <button style={linkStyle} onClick={() => setVistaActual('login')}>
+                Iniciar Sesión
+              </button>
 
-          <button style={botonRegistroStyle} onClick={() => setVistaActual('registro')}>
-            Registrarse
-          </button>
+              <button style={botonRegistroStyle} onClick={() => setVistaActual('registro')}>
+                Registrarse
+              </button>
+            </>
+          )}
+
+          {/* SI ESTÁ LOGUEADO */}
+          {usuarioLogueado && (
+            <button 
+              style={linkStyle}
+              onClick={cerrarSesion}
+            >
+              Cerrar sesión
+            </button>
+)}
         </div>
 
       </nav>
@@ -71,15 +102,19 @@ function App() {
 
         {vistaActual === 'home' && <Home />}
 
-        {vistaActual === 'registro' && (
+        {vistaActual === 'registro' && !usuarioLogueado && (
           <Registro
             irHome={() => setVistaActual('home')}
             irLogin={() => setVistaActual('login')}
           />
         )}
 
-        {vistaActual === 'login' && (
-          <Login irHome={() => setVistaActual('home')} />
+        {vistaActual === 'login' && !usuarioLogueado && (
+          <Login 
+            irHome={() => setVistaActual('home')}
+            irRegistro={() => setVistaActual('registro')}
+            setUsuarioLogueado={setUsuarioLogueado}
+          />
         )}
 
       </div>
