@@ -48,7 +48,7 @@ const Login = ({ irHome, irRegistro, setUsuarioLogueado }) => {
 
     try {
       const res = await axios.post(
-        'http://localhost:4000/api/usuarios/login',
+        '[https://ecopoint-production-8ab9.up.railway.app](https://ecopoint-production-8ab9.up.railway.app)/api/usuarios/login',
         formData
       );
       localStorage.setItem("token", res.data.token);

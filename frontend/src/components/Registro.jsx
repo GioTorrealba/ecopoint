@@ -30,7 +30,7 @@ const Registro = ({ irHome, irLogin }) => {
     try {
       setCargando(true);
       await axios.post(
-        'http://localhost:4000/api/usuarios/registro',
+        '[https://ecopoint-production-8ab9.up.railway.app](https://ecopoint-production-8ab9.up.railway.app)/api/usuarios/registro',
         formData
       );
 
