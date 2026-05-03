@@ -35,7 +35,7 @@ const Buscador = ({ tab }) => {
     setError('');
     try {
       const res = await axios.get(
-        `[https://ecopoint-production-8ab9.up.railway.app](https://ecopoint-production-8ab9.up.railway.app)/api/contenedores/buscar-residuo?nombre=${busqueda}`
+        `https://ecopoint-production-8ab9.up.railway.app/api/contenedores/buscar-residuo?nombre=${busqueda}`
       );
       setResultado(res.data[0]);
     } catch (err) {

@@ -42,7 +42,7 @@ function Home() {
       try {
         // Si el usuario eligió un residuo en la pestaña anterior, filtramos en la API
         const parametroTipo = residuo ? `?tipo=${residuo}` : "";
-        const res = await axios.get(`[https://ecopoint-production-8ab9.up.railway.app](https://ecopoint-production-8ab9.up.railway.app)/api/contenedores/buscar${parametroTipo}`);
+        const res = await axios.get(`https://ecopoint-production-8ab9.up.railway.app/contenedores/buscar${parametroTipo}`);
         setContenedores(res.data);
       } catch (err) {
         console.error("Error cargando contenedores:", err);
