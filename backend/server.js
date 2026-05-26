@@ -19,10 +19,6 @@ mongoose.connect(process.env.MONGO_URI)
 // 1. Ruta de bienvenida (opcional para chequear estado)
 app.get("/", (req, res) => res.send("EcoPoint API v1.0 - Funcionando"));
 
-// 2. Rutas de Contenedores (Aceite, Ropa, Pilas)
-const contenedoresRoutes = require("./routes/contenedores.js");
-app.use("/api/contenedores", contenedoresRoutes);
-
 // 3. Rutas de Usuarios (Registro, Login)
 const usuariosRoutes = require("./routes/user.js");
 app.use("/api/usuarios", usuariosRoutes);
