@@ -31,7 +31,9 @@ const puntosRoutes = require("./routes/puntosLimpios");
 app.use("/api/puntos-limpios", puntosRoutes);
 
 // --- INICIO DEL SERVIDOR ---
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
+console.log("PORT: ", PORT);
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor real escuchando en http://localhost:${PORT}`);
 });
