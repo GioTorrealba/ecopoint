@@ -54,11 +54,14 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign(
             { id: user._id, email: user.email },
-            process.env.JWT_SECRETT || "secreto_provisional",
+            process.env.JWT_SECRET || "secreto_provisional",
             { expiresIn: "24h" }
         );
 
-        res.json({ msg: "Login correcto" });
+        res.json({
+        msg: "Login correcto",
+        token
+        });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
