@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/buscar", async (req, res) => {
-  res.json([{ mensaje: "ruta funcionando" }]);
+router.get("/buscar", (req, res) => {
+  res.json([{ ok: true }]);
 });
 
-router.get("/buscar-residuo", async (req, res) => {
-  res.json([{ mensaje: "buscar residuo funcionando" }]);
+router.get("/buscar-residuo", (req, res) => {
+  res.json([{ ok: true }]);
 });
 
 module.exports = router;
