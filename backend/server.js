@@ -48,6 +48,14 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(`9. Servidor escuchando en puerto ${PORT}`);
     });
 })
-.catch(err => {
-    console.error("ERROR MONGO:", err);
+    .catch(err => {
+      console.error("ERROR MONGO:", err);
+     });
+
+     process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION:", err);
 });
