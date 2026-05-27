@@ -31,10 +31,18 @@ const puntosRoutes = require("./routes/puntosLimpios");
 app.use("/api/puntos-limpios", puntosRoutes);
 
 // --- INICIO DEL SERVIDOR ---
-const PORT = process.env.PORT;
-console.log("PORT: ", PORT);
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor real escuchando en http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB conectado correctamente");
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Servidor funcionando en puerto ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("Error de conexión MongoDB:", err);
+  });
  
