@@ -39,6 +39,9 @@ mongoose.connect(process.env.MONGO_URI)
 
     app.use("/api/puntos-limpios", puntosRoutes);
 
+    const contenedoresRoutes = require("./routes/contenedores.js");
+    app.use("/api/contenedores", contenedoresRoutes);
+
     const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, '0.0.0.0', () => {
