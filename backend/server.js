@@ -3,46 +3,48 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 require("dotenv").config();
 
+console.log("1. Inicio server");
+
 const app = express();
 
-// Middlewares
 app.use(cors());
-app.use(express.json()); // Permite que el servidor entienda JSON (necesario para el registro)
+app.use(express.json());
 
-// --- CONEXIÓN A MONGODB ---
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log(" MongoDB conectado correctamente"))
-  .catch(err => console.log("Error de conexión:", err));
+console.log("2. Middlewares OK");
 
-// --- RUTAS (Endpoints) ---
-
-// 1. Ruta de bienvenida (opcional para chequear estado)
-app.get("/", (req, res) => res.send("EcoPoint API v1.0 - Funcionando"));
-
-// 3. Rutas de Usuarios (Registro, Login)
-const usuariosRoutes = require("./routes/user.js");
-app.use("/api/usuarios", usuariosRoutes);
-
-// 4. Rutas de Recogidas (Si las sigues usando)
-const recogidasRoutes = require("./routes/recogidas.js");
-app.use("/api/recogidas", recogidasRoutes);
-
-const puntosRoutes = require("./routes/puntosLimpios");
-app.use("/api/puntos-limpios", puntosRoutes);
-
-// --- INICIO DEL SERVIDOR ---
-
-const PORT = process.env.PORT || 3000;
+console.log("3. MONGO_URI:", process.env.MONGO_URI ? "EXISTE" : "NO EXISTE");
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB conectado correctamente");
+.then(() => {
+    console.log("4. Mongo conectado");
+
+    app.get("/", (req, res) => {
+        res.send("Servidor funcionando");
+    });
+
+    console.log("5. Rutas base OK");
+
+    const usuariosRoutes = require("./routes/user.js");
+    console.log("6. users OK");
+
+    app.use("/api/usuarios", usuariosRoutes);
+
+    const recogidasRoutes = require("./routes/recogidas.js");
+    console.log("7. recogidas OK");
+
+    app.use("/api/recogidas", recogidasRoutes);
+
+    const puntosRoutes = require("./routes/puntosLimpios.js");
+    console.log("8. puntos OK");
+
+    app.use("/api/puntos-limpios", puntosRoutes);
+
+    const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Servidor funcionando en puerto ${PORT}`);
+        console.log(`9. Servidor escuchando en puerto ${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error("Error de conexión MongoDB:", err);
-  });
- 
+})
+.catch(err => {
+    console.error("ERROR MONGO:", err);
+});
