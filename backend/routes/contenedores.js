@@ -22,19 +22,5 @@ router.get("/buscar", async (req, res) => {
   }
 });
 
-// Buscar residuo simple
-router.get("/buscar-residuo", async (req, res) => {
-  try {
-    res.json([
-      {
-        nombre: "Botella",
-        contenedor: "Verde",
-        consejos: "Vacíala antes de reciclarla"
-      }
-    ]);
-  } catch (error) {
-    res.status(500).json({ error: "Error buscando residuo" });
-  }
-});
 
 module.exports = router;

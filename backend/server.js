@@ -42,6 +42,9 @@ mongoose.connect(process.env.MONGO_URI)
     const contenedoresRoutes = require("./routes/contenedores.js");
     app.use("/api/contenedores", contenedoresRoutes);
 
+    const residuosRoutes = require("./routes/residuos.js");
+    app.use("/api/residuos", residuosRoutes);
+
     const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, '0.0.0.0', () => {
