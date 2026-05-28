@@ -127,9 +127,7 @@ const Buscador = ({ tab }) => {
 
       {error && (
         <div style={tarjetaErrorStyle}>
-          <p>¿No está en nuestra lista?</p>
-          <h2 style={{ margin: '10px 0 20px 0' }}>¡Ayúdanos a crecer!</h2>
-          <button style={botonMasStyle}>+</button>
+          <p>{error}</p>
         </div>
       )}
     </div>
