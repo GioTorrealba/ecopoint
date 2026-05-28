@@ -29,22 +29,27 @@ const Buscador = ({ tab }) => {
   };
 
   const buscarResiduo = async (e) => {
-    if (e) e.preventDefault();
-    if (!busqueda.trim()) return;
-    console.log("BUSQUEDA: ", busqueda);
-    console.log("RESPUESTA:", respuesta);
-    
-    setError('');
-    try {
-      const res = await axios.get(
-        `https://ecopoint-production-8ab9.up.railway.app/api/residuos?nombre=${busqueda}`
-      );
-      setResultado(res.data?.[0] || null);
-    } catch (err) {
-      setError('No encontramos ese residuo');
-      setResultado(null);
-    }
-  };
+  if (e) e.preventDefault();
+  if (!busqueda.trim()) return;
+
+  console.log("BUSQUEDA:", busqueda);
+
+  setError('');
+  try {
+    const res = await axios.get(
+      `https://ecopoint-production-8ab9.up.railway.app/api/residuos?nombre=${busqueda}`
+    );
+
+    console.log("RESPUESTA:", res.data);
+
+    setResultado(res.data?.[0] || null);
+
+  } catch (err) {
+    console.error(err);
+    setError('No encontramos ese residuo');
+    setResultado(null);
+  }
+};
 
   //LIMPIAR RESULTADOS AL CAMBIAR DE PESTAÑA
   React.useEffect(() => {
